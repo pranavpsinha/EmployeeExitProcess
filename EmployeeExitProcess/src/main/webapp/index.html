@@ -54,7 +54,10 @@ html{
 	<!-- body of application, everything that goes around on screen is happening inside this -->
 	<body id="theBody">
 	
-		<div ui-view></div>
+		<div id="wrapper">
+			<div ui-view></div>
+		</div>
+		<h2 id="warning-message" style="color: #000">This application is only viewable in landscape mode.</h2>
 		
 	</body>	
 	
