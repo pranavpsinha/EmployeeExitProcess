@@ -1,4 +1,15 @@
 <style>
+
+/*restricting mobile users to use landscape mode*/
+#warning-message { display: none; }
+@media only screen and (orientation:portrait){
+    #wrapper { display:none; }
+    #warning-message { display:block; }
+}
+@media only screen and (orientation:landscape){
+    #warning-message { display:none; }
+}
+
 /* Portrait and Landscape */
 @media screen 
   and (device-width: 360px) 
