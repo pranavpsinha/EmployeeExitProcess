@@ -1,0 +1,105 @@
+input.formInvalid::-webkit-input-placeholder {
+	color: #f08080 !important;
+}
+
+.input::-webkit-input-placeholder {
+	color: #ddd !important;
+}
+
+.input::-moz-placeholder { /* Firefox 18- */
+	color: blue !important;
+}
+
+.input {
+	margin-bottom: 5%;
+	margin-left: 30px;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid #888;
+	width: 200px;
+	height: 30px;
+	background: transparent;
+	/*background-color: rgba(255, 255, 255, 0.05);*/
+	color: #ddd;
+	/*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);*/
+}
+
+tr.space>td {
+	padding-top: 4%;
+	padding-bottom: 4%;
+}
+
+.box {
+	margin-left: 36.5%;
+	margin-right: 36.5%;
+	background-color: rgba(0, 0, 0, 0.5);
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+	border-radius: 8px;
+	width: 360px;
+	height: 290px;
+	margin-top: 3%;
+	float: left;
+}
+
+.capsule {
+	float: left;
+	margin-left: 10%;
+	max-width: 300px;
+	min-width: 300px;
+	height: auto;
+	position: relative;
+}
+
+.error {
+	padding-left: 5px;
+	color: #f08080;
+}
+
+.login, .login:focus {
+	position: relative;
+	left: 31%;
+	height: 40px;
+	width: 70px;
+	border: none;
+	border-radius: 2px;
+	color: #f08080;
+	background: transparent;
+	padding: 2px 0px 2px 3px;
+	margin-left: 5.5%;
+	margin-top: 10%;
+	transition: 0.5s background-color;
+}
+
+.login:hover, .login:active {
+	background-color: #f08080;
+	color: #fff;
+}
+
+.uname, .pwd {
+	padding: 2px 0px 2px 3px;
+}
+
+.loginBody {
+	background: url('/assets/images/loginBackground.jpg');
+	background-size: cover;
+	position: absolute;
+	background-attachment: fixed;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+}
+
+h4 {
+	font-family: 'calibri';
+	color: #f08080;
+}
+
+.ng-hide {
+	background-color: transparent;
+	color: transparent;
+}
+
+.department {
+	font-family: 'calibri';
+}

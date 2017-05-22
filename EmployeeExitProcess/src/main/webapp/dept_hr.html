@@ -1,0 +1,602 @@
+<style>
+.input_ {
+	outline: none;
+	background-color: rgba(0, 0, 0, 0.01);
+	border-left: 1px solid #0077be;
+	border-bottom: 1px solid #0077be;
+	border-radius: 0 10px 0 10px;
+}
+
+.dashboardBody {
+	background: url('/assets/images/dashboardBackground.jpg');
+	background-size: cover;
+	position: absolute;
+	background-attachment: fixed;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+}
+
+.viewPendingRequestsButton {
+	margin-left: 45%;
+	margin-top: 10px;
+	width: auto;
+	background: transparent;
+	border-radius: 3px;
+	border: none;
+	color: #008080;
+	transition: 0.7s color;
+}
+
+.viewPendingRequestsButton:hover {
+	box-shadow: 1px 0px 1px #008080;
+	border: 1px solid #008080;
+	color: #fff;
+}
+
+.red {
+	margin-left: 45%;
+	color: #008080;
+	font-family: 'calibri';
+	font-size: 40px;
+}
+
+h5 {
+	color: #008080;
+	padding-left: 15px;
+}
+
+.left {
+	display: inline-block;
+	float: left;
+	padding-left: 10px;
+	padding-right: 10px;
+	max-width: 45%;
+}
+
+.right {
+	display: inline-block;
+	float: left;
+	margin-left: 5%;
+	margin-top: 2%;
+}
+
+.hrBox {
+	color: #000;
+	margin-top: 2%;
+}
+
+.black {
+	color: #000;
+	height: 23px;
+}
+
+.mT {
+	padding-top: 15px;
+}
+
+.add {
+	margin-top: 20px;
+	border: none;
+	border-radius: 2px;
+	background: transparent;
+	color: #008080;
+	transition: 0.7s background;
+	font-size: 20px;
+	text-align: center;
+	margin-left: 35%;
+	width: 70px;
+	height: 40px;
+}
+
+.add:hover {
+	background: #008080;
+	color: #fff;
+}
+
+.formlet-uid {
+	color: #008080;
+	font-size: 16px;
+}
+
+.formlet-password {
+	color: #008080;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.formlet-password:hover {
+	text-decoration: underline;
+}
+
+.pendingResignationRequests {
+	margin-left: 15px;
+	max-height: 150px;
+}
+
+.viewPendingRequestsButton {
+	margin-left: 40%;
+	margin-top: 10px;
+	width: auto;
+	background: transparent;
+	border-radius: 3px;
+	border: none;
+	color: #008080;
+	transition: 0.7s color;
+}
+
+.viewPendingRequestsButton:hover {
+	box-shadow: 1px 0px 1px #008080;
+	border: 1px solid #008080;
+	color: #000;
+}
+
+.viewPendingRequestsButton:active {
+	box-shadow: 1px 0px 1px #008080;
+}
+
+.done {
+	margin-top: 2px;
+	font-family: 'calibri';
+	border: none;
+	background: transparent;
+	color: #008080;
+	transition: 0.5s background;
+}
+
+.done:hover {
+	background: #008080;
+	color: #fff;
+}
+
+.resignApplicant {
+	font-family: calibri;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.resignApplicant:hover {
+	text-decoration: underline;
+}
+
+.tHead {
+	margin-top: 15px;
+	color: #008080;
+	font-family: 'calibri';
+	font-size: 20px;
+}
+
+.zeroPadding {
+	padding: 0px;
+	overflow-y: auto;
+}
+
+.modalRedHeader {
+	font-size: 20px;
+	color: #008080;
+}
+
+.modalRedColumn {
+	font-size: 15px;
+	color: #f08080;
+}
+
+.modalRedDescription {
+	font-size: 14px;
+	color: #800000;
+}
+</style>
+
+<div class="dashboardBody">
+
+	<!-- hr portal -->
+	<div class="container-fluid">
+		<div class="red">HR Portal</div>
+
+		<!-- custom navigation bar provides way to add-new-employee, view-resign-requests, view-verified-resign-requests -->
+		<div class="navPanel" style="margin-left: 36%;">
+
+			<div style="display: inline-block">
+				<a><span class="home" ng-click="instructions()"><i
+						class="material-icons materialHome">home</i></span></a>
+			</div>
+
+			<div id="add"
+				style="display: inline-block; margin-left: 15px; text-decoration: none;">
+				<a><span id="__0" class="profile" ng-click="add()">Add
+						New</span></a>
+			</div>
+
+			<div id="rr" style="display: inline-block; text-decoration: none;">
+				<a><span id="__1" class="dashboard" ng-click="pending()">Resign
+						Requests</span></a>
+			</div>
+
+			<div id="vr" style="display: inline-block; text-decoration: none;">
+				<a><span id="__2" class="action" ng-click="verified()">Verified
+						Requests</span></a>
+			</div>
+
+		</div>
+
+		<div class="hrBox">
+
+			<!-- instructions to navigate through portal -->
+			<div class="navPanelBody" ng-hide="instructionF"
+				style="margin-left: 20%; margin-top: 2%;">
+
+				<div class="instruction">Quick Guide to Navigate Through Page</div>
+
+				<div class="desc">
+					Dear <span class="postLoginUsername">{{liu.firstName}}</span>,
+
+					<ul>
+
+						<li>This is your default portal screen</li>
+						<li>You may go to Add Employee, View Pending Requests or View
+							Verified Requests.</li>
+						<li>To go to respective pages, use navigation bar above.</li>
+						<li>To have a quick view at Employee Details, Click on
+							Employee-Name. A modal shall appear.</li>
+						<li ng-show="liu.department == 'HR'">If email or mobile you
+							enter for new employee exists already, data will not be saved in
+							database.</li>
+						<li ng-show="liu.department == 'HR'">In case random password
+							doesn't pleases you (in add employee section), click on it to
+							re-generate.</li>
+						<li>Click on ' <i class="fa fa-home"></i> ' to come back to this screen.</li>
+
+					</ul>
+
+					<button class="signOut" ng-click="back()">Go Back</button>
+
+				</div>
+
+			</div>
+
+
+			<!-- add employee -->
+			<div ng-hide="addF" style="margin-left: 25%; margin-right: 25%;">
+
+				<form id="addEmployee" name="addEmployee"
+					onkeypress="return event.keyCode != 13;" novalidate>
+
+					<div ng-hide="aef">
+
+						<div class="col-sm-8 mT">
+							<span class="formlet">First Name</span> <input
+								class="form-control input_" style="text-transform: capitalize;"
+								id="first_name" ng-model="employee.firstName" type="text"
+								placeholder="Enter First Name"
+								onkeypress="return ((event.charCode>=97&&event.charCode<=122)||(event.charCode>=65&&event.charCode<=90))" />
+						</div>
+
+						<div class="col-sm-4 mT">
+							<span class="formlet">Last Name</span> <input
+								class="form-control input_" style="text-transform: capitalize;"
+								id="last_name" ng-model="employee.lastName" type="text"
+								placeholder="Enter Last Name"
+								onkeypress="return ((event.charCode>=97&&event.charCode<=122)||(event.charCode>=65&&event.charCode<=90))" />
+						</div>
+
+						<div class="col-sm-8 mT">
+							<span class="formlet">Email Address</span><span
+								style="color: #008080; padding-left: 3px"
+								ng-hide="addEmployee.email.$dirty && !addEmployee.email.$valid">[Optional]</span><span
+								class="error"
+								ng-show="addEmployee.email.$dirty && !addEmployee.email.$valid">Invalid</span>
+							<input name="email" class="form-control input_"
+								ng-pattern="pattern" id="email" ng-model="employee.emailAddress"
+								type="text" placeholder="Enter Email Address" />
+						</div>
+
+						<div class="col-sm-4 mT">
+							<span class="formlet">Date of Joining</span> <input
+								onfocus="this.type='date'" onblur="this.type='text'"
+								class="form-control input_" id="doj" ng-model="dummyDate"
+								type="text" placeholder="Enter Date Of Joining" />
+						</div>
+
+						<div class="col-sm-4 mT">
+							<span class="formlet">Mobile</span><span
+								style="color: #008080; padding-left: 3px"
+								ng-hide="(addEmployee.mobile_.$dirty && employee.mobile.length!=10)" ng-show="employee.mobile.length==0">[Optional]</span><span
+								class="error"
+								ng-show="(addEmployee.mobile_.$dirty && employee.mobile.length!=10)" ng-hide="employee.mobile.length==0">Invalid</span>
+							<input class="form-control input_" name="mobile_" id="mobile"
+								ng-model="employee.mobile"
+								onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+								maxlength="10" type="text" placeholder="Enter Mobile Number" />
+						</div>
+
+						<div class="col-sm-4 mT">
+							<span class="formlet">Department</span> <select
+								class="form-control input_" id="department"
+								ng-model="employee.department"
+								ng-options="d as d for d in departments">
+								<!-- 	<option >{{d}}</option> -->
+							</select>
+						</div>
+
+						<div class="col-sm-4 mT">
+							<span class="formlet">ID : Password</span>
+							<div style="height: 7px"></div>
+							<span
+								ng-hide="employee.firstName.length==0 || employee.lastName.length==0"
+								style="padding-top: 10px" class="formlet-uid">
+								{{employee.lastName.substr(0,3)+employee.firstName.substr(0,2)+unameTail
+								| lowercase}} : 
+							</span> 
+							<label class="formlet-password"
+								ng-click="newPassword()"
+								ng-hide="employee.firstName.length==0 || employee.lastName.length==0">
+								{{employee.passWord}}
+							</label>
+						</div>
+
+						<div class="col-sm-12 mT" style="display: inline-block;"></div>
+
+						<div>
+							<div class="col-sm-4 mT">
+								<input type="checkbox" ng-model="employee.hasLaptop" id="laptop">&#32&#32Laptop
+							</div>
+							<div class="col-sm-4 mT">
+								<input type="checkbox" ng-model="employee.hasDocument"
+									id="document">&#32&#32Document
+							</div>
+							<div class="col-sm-4 mT">
+								<input type="checkbox" ng-model="employee.hasAccessCard"
+									id="access_card">&#32&#32Access Card
+							</div>
+						</div>
+
+						<div class="col-sm-4 mT"
+							style="display: inline-block; margin-left: 35%;">
+							<button class="add" ng-click="sendData()">Add</button>
+							
+							<!-- success message once valid data has been updated to database -->
+							<i class="material-icons" ng-show="updated" style="position: absolute; padding-top: 25px;">done</i>
+							
+							<div style="margin-left: 26%;">
+								<button class="signOut" ng-click="back()">Go Back</button>
+							</div>
+						</div>
+
+					</div>
+
+				</form>
+
+			</div>
+
+
+			<!-- pending resignation requests -->
+			<div ng-hide="pendingF" style="margin-left: 25%; margin-right: 25%;">
+
+				<form id="getEmployee" name="getEmployee">
+
+					<div class="rightUp">
+
+						<h3 style="margin-left: 27%;">Pending Resignation Requests</h3>
+
+						<div class="pendingResignationRequests" style="margin-left: 27%;">
+
+							<div style="display: inline-block; width: 135px;" ng-show="prr">
+								<span class="tHead">First Name</span>
+							</div>
+
+							<div style="display: inline-block;" ng-show="prr">
+								<span class="tHead">Action</span>
+							</div>
+
+							<br>
+
+							<div class="zeroPadding" ng-repeat="e in employeeData"
+								ng-hide="e.resignEmployeeId.confirmation==true">
+
+								<div style="display: inline-block; width: 70px;">
+									<span class="resignApplicant" data-toggle="modal"
+										data-target="#applied" ng-click="modalData(e)">{{e.firstName}}</span>
+								</div>
+
+								<div style="display: inline-block; margin-left: 65px;">
+									<select ng-model="e.dummyResignStatus"
+										ng-options="s as s for s in status" style="color: #000"
+										name="selector">
+										<option value="" selected disabled>~Select~</option>
+									</select>
+
+									<button class="done" ng-click="postBack(e)"
+										ng-show="updateButtonFlag(e.dummyResignStatus)">Update</button>
+
+								</div>
+
+							</div>
+
+							<!-- Modal -->
+							<div class="modal fade" id="applied" role="dialog">
+
+								<div class="modal-dialog">
+
+									<!-- Modal content-->
+									<div class="modal-content">
+
+										<div class="modal-header">
+
+											<h4 class="modal-title modalRedHeader">{{mData.firstName+"
+												"+mData.lastName}}</h4>
+
+										</div>
+
+										<div class="modal-body">
+
+											<span class="modalRedColumn" style="min-width: 150px;">Department</span>
+
+											<span class="modalRedDescription" style="padding-left: 25px;">:&#32;{{mData.department}}</span>
+
+											<br> <span class="modalRedColumn" style="width: 150px;">Date
+												Joined</span> <span class="modalRedDescription"
+												style="padding-left: 23px;">:&#32;{{mData.dateJoined
+												| date}}</span> <br> <span class="modalRedColumn"
+												style="width: 150px;">Contact</span> <span
+												class="modalRedDescription" style="padding-left: 50px;">:&#32;{{mData.mobile}}</span>
+
+											<br> <span class="modalRedColumn" style="width: 150px;">Email-Id</span>
+											<span class="modalRedDescription" style="padding-left: 48px;">:&#32;{{mData.emailAddress}}</span>
+
+											<br> <span class="modalRedColumn" style="width: 150px;">Resigned
+												On</span> <span class="modalRedDescription"
+												style="padding-left: 15px;">:&#32;{{mData.resignEmployeeId.resignAppliedDate
+												| date}}</span> <br>
+
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">Close</button>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<!-- Modal ends -->
+
+						</div>
+
+						<div style="margin-top: 25px; margin-left: 11%;">
+
+							<button class="form-control viewPendingRequestsButton"
+								ng-click="getData()">View List</button>
+
+						</div>
+
+						<div style="margin-left: 45%;">
+
+							<button class="signOut" ng-click="back()">Go Back</button>
+
+						</div>
+
+					</div>
+
+				</form>
+
+			</div>
+
+
+			<!-- verified resignation requests -->
+			<div ng-hide="verifiedF" style="margin-left: 26%; margin-right: 25%;">
+
+				<form id="relieveEmployee" name="relieveEmployee">
+
+					<div class="rightDown">
+
+						<h3 style="margin-left: 27%;">Verified Resignation Requests</h3>
+
+						<div class="pendingResignationRequests" style="margin-left: 27%;">
+
+							<div style="display: inline-block; width: 135px;" ng-show="vpr">
+								<span class="tHead">First Name</span>
+							</div>
+
+							<div style="display: inline-block;" ng-show="vpr">
+								<span class="tHead">Action</span>
+							</div>
+
+							<div></div>
+
+							<div class="zeroPadding" ng-repeat="a in verifiedEmployeeData"
+								ng-hide="a.resignEmployeeId.resignApplied == true">
+
+								<div style="display: inline-block; width: 70px;">
+
+									<span class="resignApplicant" data-toggle="modal"
+										data-target="#verified" ng-click="modalData(a)">{{a.firstName}}</span>
+
+								</div>
+
+								<div style="display: inline-block; margin-left: 65px;">
+
+									<button class="done" ng-click="relieve(a)">Relieve</button>
+
+								</div>
+
+							</div>
+
+							<!-- Modal -->
+							<div class="modal fade" id="verified" role="dialog">
+
+								<div class="modal-dialog">
+
+									<!-- Modal content -->
+									<div class="modal-content">
+
+										<div class="modal-header">
+
+											<h4 class="modal-title modalRedHeader">{{mData.firstName+"
+												"+mData.lastName}}</h4>
+
+										</div>
+
+										<div class="modal-body">
+
+											<span class="modalRedColumn" style="min-width: 150px;">Department</span>
+
+											<span class="modalRedDescription" style="padding-left: 25px;">:&#32;{{mData.department}}</span>
+
+											<br> <span class="modalRedColumn" style="width: 150px;">Date
+												Joined</span> <span class="modalRedDescription"
+												style="padding-left: 23px;">:&#32;{{mData.dateJoined
+												| date}}</span> <br> <span class="modalRedColumn"
+												style="width: 150px;">Contact</span> <span
+												class="modalRedDescription" style="padding-left: 50px;">:&#32;{{mData.mobile}}</span>
+
+											<br> <span class="modalRedColumn" style="width: 150px;">Email-Id</span>
+											<span class="modalRedDescription" style="padding-left: 48px;">:&#32;{{mData.emailAddress}}</span>
+
+											<br> <span class="modalRedColumn" style="width: 150px;">Resigned
+												On</span> <span class="modalRedDescription"
+												style="padding-left: 15px;">:&#32;{{mData.resignEmployeeId.resignAppliedDate
+												| date}}</span> <br>
+
+										</div>
+
+										<div class="modal-footer">
+
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal">Close</button>
+
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+							<!-- Modal ends -->
+						</div>
+
+						<div style="margin-top: 25px; margin-left: 11%;">
+
+							<button class="form-control viewPendingRequestsButton"
+								ng-click="getVerifiedEmployeeData()">View List</button>
+
+						</div>
+
+						<div style="margin-left: 45.5%;">
+
+							<button class="signOut" ng-click="back()">Go Back</button>
+
+						</div>
+
+					</div>
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

@@ -1,0 +1,59 @@
+<style>
+.quit {
+	margin-top: 18%;
+	margin-left: 49%;
+	font-family: "calibri";
+	font-size: 20px;
+	background: transparent;
+	color: #F08080;
+	border: none;
+	width: 120px;
+	height: 40px;
+	transition: 0.7s background-color;
+}
+
+.download {
+	margin-top: 18%;
+	margin-left: 46%;
+	font-family: "calibri";
+	font-size: 20px;
+	background: transparent;
+	color: #F08080;
+	border: none;
+	width: auto;
+	height: 40px;
+	transition: 0.7s background-color;
+}
+
+.quit:hover, .download:hover {
+	color: #fff;
+	background-color: #F08080;
+	border-radius: 2px;
+}
+
+.quit:active, .download:active {
+	color: #fff;
+}
+</style>
+
+<div>
+
+	<!-- action buttons viz. quit-job and relieving letter -->
+	<div ng-controller="_actionCtrl">
+		
+		<!-- Notice about deactivation of account after two days from the download of relieving letter. -->
+	 	<span ng-show="(liu.resignEmployeeId.flag == true && liu.resignEmployeeId.confirmation == false && liu.resignEmployeeId.resignApplied == true) || (liu.resignEmployeeId.flag == true && liu.resignEmployeeId.confirmation == true && liu.resignEmployeeId.resignApplied == false)"><strong style="color: #008080">*NOTE:</strong> Your account will be deactivated 2-days after the day you download your relieving letter.</span>
+		
+		<!-- download relieving letter -->
+		<button class="btn download" ng-click="downloadPdf()"
+			ng-show="(liu.resignEmployeeId.flag == true && liu.resignEmployeeId.confirmation == false && liu.resignEmployeeId.resignApplied == true) || (liu.resignEmployeeId.flag == true && liu.resignEmployeeId.confirmation == true && liu.resignEmployeeId.resignApplied == false)">Relieving
+			Letter</button>
+		
+		<!-- apply for resignation -->
+		<button class="btn quit" ng-click="resign()"
+			ng-disabled="!(liu.resignEmployeeId == null || (liu.resignEmployeeId.flag == true && liu.resignEmployeeId.confirmation == true && liu.resignEmployeeId.resignApplied == true))"
+			ng-hide="(liu.resignEmployeeId.flag == true && liu.resignEmployeeId.confirmation == false && liu.resignEmployeeId.resignApplied == true) || (liu.resignEmployeeId.flag == true && liu.resignEmployeeId.confirmation == true && liu.resignEmployeeId.resignApplied == false)">Quit Job!</button>
+	
+	</div>
+	
+</div>

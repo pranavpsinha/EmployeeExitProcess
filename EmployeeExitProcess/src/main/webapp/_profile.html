@@ -1,0 +1,200 @@
+<style>
+.input_ {
+	border-radius: 0 10px 0 10px;
+	outline: none;
+	background: transparent;
+	border-bottom: 1px solid #0077be;
+	border-left: 1px solid #0077be;
+	width: 250px;
+}
+
+.input_:hover {
+	background-color: rgba(0, 120, 120, 0.05);
+}
+
+.input_:active {
+	background-color: rgba(0, 100, 100, 0.1);
+}
+
+.viewBody {
+	margin-left: 20%;
+	font-family: 'Calibri';
+	width: 600px;
+}
+
+.lastName {
+	color: #008080;
+	font-size: 40px;
+}
+
+.firstName {
+	color: #000;
+	font-size: 25px;
+	padding-left: 30px;
+}
+
+.loggedInUserInfo {
+	font-size: 20px;
+	color: #008080;
+}
+
+.loggedInUserInfoDetails {
+	padding-left: 30px;
+	font-size: 18px;
+	color: #000;
+}
+
+.update {
+	margin-top: 20px;
+	border: none;
+	border-radius: 2px;
+	background: transparent;
+	color: #008080;
+	transition: 0.7s background;
+	font-size: 20px;
+	text-align: center;
+	margin-left: 23%;
+}
+
+.update:hover {
+	background: #008080;
+	color: #fff;
+}
+</style>
+
+<div ng-controller="_profileCtrl">
+
+	<!-- Update profile tab with only some editable fields -->
+	<div class="viewBody">
+
+		<!-- header featuring full-name of logged-in-user -->
+		<div>
+
+			<span class="lastName">{{loggedInUser.lastName | uppercase}}</span> <span
+				class="firstName">{{loggedInUser.firstName | uppercase}}</span>
+
+		</div>
+
+		<!-- form featuring some updatable fields viz. password, email-id, mobile-number-->
+		<!-- has a check mechanism with database; ergo, no duplicate entry is allowed under any circumstances. -->
+		<form name="updateLiu" style="padding-top: 20px;" novalidate>
+
+			<!-- table to display employee details and provide editing options to editable fields -->
+			<table class="loggedInUserInfo">
+				<!-- row 1  Id 			: loggedInUser.employeeId -->
+				<!--tr>
+					<td>Id</td>
+					<td>:</td>
+					<td><span class="loggedInUserInfoDetails">{{loggedInUser.employeeId}}</span></td>
+				</tr-->
+
+				<!-- row 2  Username 	: loggedInUser.userId -->
+				<tr>
+					<td>Username</td>
+					<td>:</td>
+					<td><span class="loggedInUserInfoDetails">{{loggedInUser.userId
+							| lowercase}}</span></td>
+				</tr>
+
+				<!-- row 3  Password 	: loggedInUser.passWord - editable -->
+				<tr>
+					<td>Password</td>
+					<td>:</td>
+					<td>
+						<div class="loggedInUserInfoDetails col-sm-12">
+							<input class="input_ form-control" name="passWord" style="height: 90%;"
+								ng-model="loggedInUser.passWord" class="form-control" required />
+						</div>
+					</td>
+					<td><span class="error"
+						ng-show="loggedInUser.passWord.length<5">Too Small</span></td>
+				</tr>
+
+				<!-- row 4  Department	: loggedInUser.department -->
+				<tr>
+					<td>Department</td>
+					<td>:</td>
+					<td><span class="loggedInUserInfoDetails">{{loggedInUser.department
+							| capitalize}}</span></td>
+				</tr>
+
+				<!-- row 5 	Email		: loggedInUser.emailAddress - editable -->
+				<tr>
+					<td>E-mail</td>
+					<td>:</td>
+					<td>
+						<div class="loggedInUserInfoDetails col-sm-12">
+							<input class="input_ form-control" name="email" style="height: 90%" ng-pattern="pattern"
+								ng-model="loggedInUser.emailAddress" class="form-control"
+								required />
+						</div>
+					</td>
+
+					<!-- error message for invalid entry -->
+					<td><span class="error"
+						ng-show="updateLiu.email.$dirty && !updateLiu.email.$valid">Invalid
+							Email</span></td>
+
+				</tr>
+
+				<!-- row 6 	Mobile		: loggedInUser.mobile - editable -->
+				<tr>
+					<td style="padding-top: 5px;">Contact</td>
+					<td style="padding-top: 5px;">:</td>
+					<td>
+						<div class="loggedInUserInfoDetails col-sm-12"
+							style="padding-top: 5px;">
+							<input class="input_ form-control" name="mobile" style="height: 90%"
+								ng-model="loggedInUser.mobile" class="form-control"
+								onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+								maxlength="10" required />
+						</div>
+					</td>
+
+					<!-- error message for invalid entry -->
+					<td><span class="error"
+						ng-show="(updateLiu.mobile.$dirty && loggedInUser.mobile.length!=10)">Invalid
+							Number</span></td>
+
+				</tr>
+
+				<!-- row 7 	Date-Joined	: loggedInUser.dateJoined -->
+				<tr>
+					<td>Date-Joined</td>
+					<td>:</td>
+					<td><span class="loggedInUserInfoDetails">{{loggedInUser.dateJoined
+							| date}}</span></td>
+				</tr>
+
+				<!-- row 8 	Accessories	: loggedInUser.hasLaptop, loggedInUser.hasAccessCard, loggedInUser.hasDocument -->
+				<tr>
+					<td>Accessories</td>
+					<td>:</td>
+					<td><span class="loggedInUserInfoDetails"> <span
+							ng-hide="(loggedInUser.hasLaptop || loggedInUser.hasAccessCard || loggedInUser.hasDocument)">None</span>
+							<span ng-show="loggedInUser.hasLaptop"
+							style="padding-right: 10px;">Laptop</span> <span
+							ng-show="loggedInUser.hasAccessCard" style="padding-right: 10px;">Access-Card</span>
+							<span ng-show="loggedInUser.hasDocument"
+							style="padding-right: 10px;">Documents</span>
+					</span></td>
+				</tr>
+
+			</table>
+
+			<!-- update button and a done! message which only shows for 3 seconds if valid data is successfully updated -->
+			<div>
+
+				<!-- update button which sends data to back-end where validity gets verified and thenceforth reflected -->
+				<button class="update" ng-click="updateProfile()">Update</button>
+				
+				<!-- success message once valid data has been updated to database -->
+				<i class="material-icons" ng-show="updated" style="position: absolute; padding-top: 21px;">done</i>
+
+			</div>
+
+		</form>
+
+	</div>
+
+</div>

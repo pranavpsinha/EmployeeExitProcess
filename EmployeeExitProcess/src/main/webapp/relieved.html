@@ -1,0 +1,61 @@
+<style>
+p{
+	font-family: 'Calibri';
+}
+.name{
+	color: #008080;
+}
+.print {
+	margin-top: 2px;
+	margin-left: 50%;
+	font-family: 'calibri';
+	border: none;
+	background: transparent;
+	color: #f08080;
+	transition: 0.5s background;
+}
+
+.print:hover {
+	background: #f08080;
+	color: #fff;
+}
+</style>
+
+<!-- relieving letter -->
+<div class="letter" ng-controller="regularCtrl">
+
+	<!-- contents of letter -->
+	<div id="letter">
+	
+		<!-- letter body with dynamic data -->
+		<p>
+		
+			Dated : {{now}}<br>
+			DH <br>
+			<br>
+			Subject : Relieving and experience Letter<br>
+			<br>
+			Dear <span class="name">{{liu.firstName | capitalize}},</span> <br>
+			<br>
+			This is in reference to your letter of resignation dated {{liu.resignEmployeeId.resignAppliedDate | date}}, wherein you had requested to be relieved from the services of the company at the earliest, and an experience certificate.<br>
+			<br>
+			We wish to inform you that your resignation has been accepted and you are being relieved from the services of the company with immediate effect from close of office hours on {{liu.resignEmployeeId.relievedDate | date}}<br>
+			<br>
+			During your tenure from {{liu.dateJoined | date}} to {{liu.resignEmployeeId.relievedDate | date}} your contributions to the organization are highly appreciated. <br>
+			<br>
+			We wish you best of luck for your future endeavors.<br>
+			<br>
+			Yours Sincerely,<br>
+			For DH Consultants<br>
+			<br>
+			<br>
+			<span class="name">DH - Human Resources</span>
+			
+		</p>
+		
+	</div>
+	
+	<!-- button to initiate printing or download in a new pop-up window -->
+	<button ng-click="document.title='RelievingLetter'; print()" class="print">Print</button>
+	
+</div>

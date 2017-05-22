@@ -1,0 +1,99 @@
+<style>
+body {
+	background: url('/assets/images/dashboardBackground.jpg');
+	background-size: cover;
+	position: absolute;
+	background-attachment: fixed;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+	min-width: 300px;
+}
+</style>
+
+<form onLoadFadeIn>
+
+	<!-- central dashboard screen -->
+	<div class="dashboardBody">
+
+		<!-- custom navigation bar featuring three tabs viz. Profile, Dashboard, Actions -->
+		<div class="container-fluid">
+
+			<div class="white">
+
+				<div class="navPanel">
+
+					<div style="display: inline-block">
+						<a ui-sref="dashboard._postLogin"><span class="home"
+							onclick="restore()"><i class="material-icons materialHome">home</i></span></a>
+					</div>
+
+					<div style="display: inline-block; margin-left: 15px;">
+						<a ui-sref="dashboard._profile"><span id="_0"
+							href="javascript:void(0)" class="profile" onclick="enlarge(0)">Profile</span></a>
+					</div>
+
+					<div style="display: inline-block">
+						<a><span id="_1" href="javascript:void(0)" class="dashboard"
+							onclick="enlarge(1)" ng-click="redirect()">Dashboard</span></a>
+					</div>
+
+					<div style="display: inline-block">
+						<a ui-sref="dashboard._action"><span id="_2"
+							href="javascript:void(0)" class="action" onclick="enlarge(2)">Actions</span></a>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- a quick guide to navigate through page. -->
+		<!-- features instructions and logout -->
+		<div class="navPanelBody" ui-view="default">
+
+			<!-- header to instructions area -->
+			<div class="instruction" style="margin-left: 15%;">Quick Guide
+				to Navigate Through Page</div>
+
+			<!-- instructions -->
+			<div class="desc" style="margin-left: 15%;">
+
+				Dear <span class="postLoginUsername">{{liu.firstName}}</span>,
+
+				<ul>
+
+					<li>This is the post login screen, you may navigate to
+						profile-tab, dashboard-tab or action-tab.</li>
+
+					<li>Profile-tab lets you view your personal details and update your Password, Email
+						or Number.</li>
+
+					<li>Dashboard-tab features notification area and access to
+						respective portals.</li>
+
+					<li>Action-tab features an option to quit your existing job.</li>
+
+					<li>Click on ' <i class="fa fa-home"></i> ' to come back to this screen.</li>
+
+					<li>Notifications update automatically.</li>
+
+					<li ng-hide="liu.userId == 'admin' || liu.userId == 'a' || liu.userId == 'i'">**In case you have applied for resignation and
+						Infrastructure Department asks to submit 'Document(s)';
+						Document(s) refers to Insurance-Card etc. which was given to you
+						when you joined!</li>
+
+				</ul>
+
+				<!-- logout button ceases logged-in-user-session -->
+				<button class="signOut" ng-click="signOut()">Logout</button>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</form>

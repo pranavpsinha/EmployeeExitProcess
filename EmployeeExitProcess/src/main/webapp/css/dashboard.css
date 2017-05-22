@@ -1,0 +1,117 @@
+.dashboardBody {
+	background: url('/assets/images/dashboardBackground.jpg');
+	background-size: cover;
+	position: absolute;
+	background-attachment: fixed;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+}
+
+.white {
+	color: #000;
+}
+
+.navPanel {
+	color: #000;
+	margin-left: 38%;
+	margin-top: 2%;
+}
+
+li {
+	text-decoration: none;
+}
+
+.dashboard {
+	padding-right: 20px;
+	line-height: 70px;
+	font-family: "brandon-grotesque", sans-serif;
+	font-size: 15px;
+	font-weight: 100;
+	text-transform: uppercase;
+	font-style: normal;
+	cursor: pointer;
+	transition: 0.3s font-size;
+	opacity: 1;
+}
+
+.profile, .action {
+	padding-right: 20px;
+	line-height: 70px;
+	font-family: "brandon-grotesque", sans-serif;
+	font-size: 13px;
+	font-weight: 100;
+	text-transform: uppercase;
+	font-style: normal;
+	cursor: pointer;
+	transition: 0.3s font-size;
+	opacity: 1;
+}
+
+.home {
+	font-size: 20px;
+	padding-right: 10px;
+	cursor: pointer;
+}
+
+hr {
+	width: 20%;
+}
+
+span {
+	text-decoration: none;
+	color: #000;
+}
+/* nav done */
+.navPanelBody {
+	margin-left: 13%;
+	margin-right: 20%;
+	margin-top: 5%;
+	margin-bottom: 1%;
+	min-width: 200px;
+	min-height: 400px;
+	background: transparent;
+	color: #000;
+}
+
+.instruction {
+	font-family: 'calibri';
+	font-size: 30px;
+	color: #048bb1;
+}
+
+.desc {
+	padding-top: 20px;
+	font-family: 'calibri';
+	font-size: 20px;
+	color: #000;
+}
+
+ul {
+	padding-top: 10px;
+	font-size: 18px;
+}
+
+.postLoginUsername {
+	color: #008080;
+	text-transform: uppercase;
+}
+
+.signOut {
+	margin-top: 3%;
+	font-family: "calibri";
+	font-size: 20px;
+	background: transparent;
+	color: #008080;
+	border: none;
+	width: 100px;
+	height: 40px;
+	transition: 0.7s background-color;
+}
+
+.signOut:hover {
+	color: #fff;
+	background-color: #008080;
+	border-radius: 2px;
+}

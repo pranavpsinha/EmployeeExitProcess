@@ -1,0 +1,89 @@
+<style>
+span {
+	font-family: 'calibri';
+	color: #000;
+}
+
+ul {
+	overflow-y: auto;
+	max-height: 200px;
+}
+
+h2 {
+	color: #008080;
+}
+
+.portal {
+	margin-top: 10%;
+	margin-left: 49%;
+	font-family: "calibri";
+	font-size: 20px;
+	background: transparent;
+	color: #008080;
+	border: none;
+	width: auto;
+	height: auto;
+	transition: 0.7s background-color;
+}
+
+.portal:hover, .all:hover {
+	color: #fff;
+	background-color: #008080;
+	border-radius: 2px;
+}
+
+.all {
+	margin-top: 5px;
+	margin-left: 46.35%;
+	font-family: "calibri";
+	font-size: 20px;
+	background: transparent;
+	color: #008080;
+	border: none;
+	width: auto;
+	height: auto;
+	transition: 0.7s background-color;
+}
+</style>
+
+<div ng-controller="regularCtrl">
+
+	<!-- customized notifications with restricted visibility. ergo, serving the purpose to notify dedicated departments-->
+	<div class="regular">
+		
+		<h2 style="cursor: pointer" ng-click="refreshNotifications()">Notifications</h2>
+		
+		<div></div>
+		
+		<ul>
+			
+			<li ng-repeat="n in notification">{{n}}</li>
+			
+			<li
+				ng-if="liu.department == 'HR' && (liu.resignEmployeeId == null || (liu.resignEmployeeId.flag && liu.resignEmployeeId.confirmation && liu.resignEmployeeId.resignApplied))">{{pendingResignApplicationsCount}}</li>
+			
+			<li
+				ng-if="liu.department == 'HR' && (liu.resignEmployeeId == null || (liu.resignEmployeeId.flag && liu.resignEmployeeId.confirmation && liu.resignEmployeeId.resignApplied))">{{verifiedResignApplications}}</li>
+			
+			<li
+				ng-if="liu.department == 'Accounts' && (liu.resignEmployeeId == null || (liu.resignEmployeeId.flag && liu.resignEmployeeId.confirmation && liu.resignEmployeeId.resignApplied))">{{accountsApplications}}</li>
+			
+			<li
+				ng-if="liu.department == 'Infrastructure' && (liu.resignEmployeeId == null || (liu.resignEmployeeId.flag && liu.resignEmployeeId.confirmation && liu.resignEmployeeId.resignApplied))">{{infrastructureApplications}}</li>
+		
+		</ul>
+	
+	</div>
+
+	<!-- navigation buttons to go to portal (if not regular employee) and to view all employee data (if hr) -->
+	<div>
+		
+		<button class="portal" ng-hide="liu.department == 'Regular'"
+			ng-click="redirect()">Go To Portal</button>
+		
+		<button class="all" ng-show="liu.department == 'HR'" ng-click="all()">See
+			All Employees</button>
+	
+	</div>
+
+</div>

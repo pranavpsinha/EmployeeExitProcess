@@ -1,0 +1,159 @@
+<style>
+.dashboardBody {
+	background: url('/assets/images/dashboardBackground.jpg');
+	background-size: cover;
+	position: absolute;
+	background-attachment: fixed;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+}
+
+.red {
+	margin-left: 32%;
+	color: #008080;
+	font-family: 'calibri';
+	font-size: 40px;
+}
+
+.viewPendingRequestsButton {
+	margin-left: 45%;
+	margin-top: 10px;
+	width: auto;
+	background: transparent;
+	border-radius: 3px;
+	border: none;
+	color: #008080;
+	transition: 0.7s color;
+}
+
+.viewPendingRequestsButton:hover {
+	box-shadow: 1px 0px 1px #008080;
+	border: 1px solid #008080;
+	color: #000;
+}
+
+.white {
+	color: #000;
+	overflow-y: auto;
+}
+
+.centerDiv {
+	margin-top: 5%;
+	margin-right: auto;
+	margin-left: 23%;
+	width: auto;
+	max-height: 300px;
+}
+
+.colWidth {
+	min-width: 150px;
+	max-midth: 150px;
+	margin-top: 5px;
+}
+
+.tHead {
+	color: #008080;
+	font-family: 'calibri';
+	font-size: 20px;
+}
+</style>
+
+<!-- infrastructure portal -->
+<form>
+
+	<div class="dashboardBody">
+
+		<!-- header for the infrastructure portal -->
+		<div class="red">Infrastructure Department Portal</div>
+
+		<!-- main content holer of the portal -->
+		<div class="centerDiv">
+
+			<div ng-if="tableHeader==true">
+
+				<div style="display: inline-block;" class="colWidth">
+					<span class="tHead">First Name</span>
+				</div>
+
+				<div style="display: inline-block;" class="colWidth">
+					<span class="tHead">Date Joined</span>
+				</div>
+
+				<div style="display: inline-block; width: 100px">
+					<span class="tHead">Laptop(s)</span>
+				</div>
+
+				<div style="display: inline-block; width: 130px">
+					<span class="tHead">Document(s)</span>
+				</div>
+
+				<div style="display: inline-block; width: 130px">
+					<span class="tHead">Access Card</span>
+				</div>
+
+				<div style="display: inline-block;" class="colWidth">
+					<span class="tHead">Action</span>
+				</div>
+
+			</div>
+
+			<br>
+
+			<div ng-repeat="e in employeeData" class="white"
+				ng-if="!(e.resignEmployeeId.resignApplied==false)">
+
+				<div style="display: inline-block;" class="colWidth">{{e.firstName}}</div>
+
+				<div style="display: inline-block;" class="colWidth">{{e.dateJoined
+					| date}}</div>
+
+				<div style="display: inline-block; width: 100px">
+					<span ng-if="e.hasLaptop">Yes</span><span ng-if="!(e.hasLaptop)">No</span>
+				</div>
+
+				<div style="display: inline-block; width: 130px">
+					<span ng-if="e.hasDocument">Yes</span><span
+						ng-if="!(e.hasDocument)">No</span>
+				</div>
+
+				<div style="display: inline-block; width: 130px">
+					<span ng-if="(e.hasAccessCard)">Yes</span><span
+						ng-if="!(e.hasAccessCard)">No</span>
+				</div>
+
+				<div style="display: inline-block;" class="colWidth white">
+					<!--select style="color: #000; border: none;" ng-model="dummyResignStatus">
+						<option default>Accept</option>
+						<option>Notify Employee to Submit Possessions</option>
+					</select-->
+					<button class="update" ng-click="accessoriesReceived()"
+						ng-if="e.hasLaptop || e.hasAccessCard || e.hasDocument">Receive
+						Accessories & Update</button>
+					<!--button class="update" ng-click="infraUpdate(e)">Update</button-->
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- pending-requests & update-all button  -->
+		<div style="bottom: 15%; margin-top: 25px;">
+			<button class="updateAll" ng-click="infraUpdateAll()"
+				ng-if="updateAllFlag">Update All</button>
+			<button ng-click="getData()"
+				class="form-control viewPendingRequestsButton">View
+				Resignation Requests</button>
+		</div>
+
+		<div class="col-sm-12 mT" style="display: inline-block;"></div>
+
+		<!-- button to redirect to central dashboard -->
+		<div style="margin-left: 23%;">
+			<button class="signOut" ng-click="back()">Go Back</button>
+		</div>
+
+	</div>
+
+</form>

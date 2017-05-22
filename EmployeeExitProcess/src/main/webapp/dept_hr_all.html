@@ -1,0 +1,73 @@
+<style>
+.details {
+	font-family: 'Calibri';
+}
+
+thead, tbody {
+	display: block;
+}
+
+tbody {
+	height: 300px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.header {
+	color: #008080;
+	font-size: 25px;
+}
+
+.desc {
+	font-size: 18px;
+}
+
+.details {
+	float: left;
+	margin-top: 20px;
+	margin-right: 100%;
+	max-height: 400px;
+}
+</style>
+
+<div class="details">
+
+	<!-- table to display data of all the employees -->
+	<!-- displays : employeeId, firstName, lastName, department, dateJoined, emailAddress, mobile, resignEmployeeId.resignAppliedDate (if applied for resignation)  -->
+	<table class="table">
+
+		<thead>
+			<!-- headers -->
+			<tr class="header">
+				<th style="min-width: 50px;">Id</th>
+				<th style="min-width: 205px;">Name</th>
+				<th style="min-width: 150px;">Department</th>
+				<th style="min-width: 130px;">Joined-On</th>
+				<th style="min-width: 250px;">Email-Id</th>
+				<th style="min-width: 120px;">Mobile</th>
+				<th style="min-width: 138px;">Resigned</th>
+			</tr>
+
+		</thead>
+
+		<tbody>
+			<!-- description -->
+			<tr class="desc" ng-repeat="e in employees">
+				<td style="min-width: 50px; color: #008080">{{e.employeeId}}</td>
+				<td style="min-width: 205px;">{{e.firstName+" "+e.lastName}}</td>
+				<td style="min-width: 150px;">{{e.department}}</td>
+				<td style="min-width: 130px;">{{e.dateJoined | date}}</td>
+				<td style="min-width: 250px;">{{e.emailAddress}}</td>
+				<td style="min-width: 120px;">{{e.mobile}}</td>
+				<td style="min-width: 138px;"><span style="padding-left: 0px"
+					ng-show="e.resignEmployeeId==null">No</span> <span
+					style="padding-left: 0px; color: #f08080"
+					ng-hide="e.resignEmployeeId==null">Yes</span>
+					{{e.resignEmployeeId.resignAppliedDate | date}}</td>
+			</tr>
+
+		</tbody>
+
+	</table>
+
+</div>

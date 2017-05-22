@@ -1,0 +1,186 @@
+<style>
+.dashboardBody {
+	background: url('/assets/images/dashboardBackground.jpg');
+	background-size: cover;
+	position: absolute;
+	background-attachment: fixed;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+}
+
+.red {
+	margin-left: 35%;
+	color: #008080;
+	font-family: 'calibri';
+	font-size: 40px;
+}
+
+.viewPendingRequestsButton {
+	margin-left: 45%;
+	margin-top: 10px;
+	width: auto;
+	background: transparent;
+	border-radius: 3px;
+	border: none;
+	color: #008080;
+	transition: 0.7s color;
+}
+
+.viewPendingRequestsButton:hover {
+	box-shadow: 1px 0px 1px #008080;
+	border: 1px solid #008080;
+	color: #000;
+}
+
+.viewPendingRequestsButton:active {
+	box-shadow: 1px 0px 1px #008080;
+}
+
+.white {
+	color: #000;
+	overflow-y: auto;
+}
+
+.centerDiv {
+	margin-top: 5%;
+	margin-right: auto;
+	margin-left: 35%;
+	width: 800px;
+	max-height: 300px;
+}
+
+.colWidth {
+	min-width: 150px;
+	max-midth: 150px;
+	margin-top: 5px;
+}
+
+.tHead {
+	color: #008080;
+	font-family: 'calibri';
+	font-size: 20px;
+}
+
+.update {
+	font-family: 'calibri';
+	border: none;
+	background: transparent;
+	color: #008080;
+	transition: 0.5s background;
+}
+
+.update:hover, .updateAll:hover {
+	background: #008080;
+	color: #fff;
+}
+
+.updateAll {
+	margin-left: 50%;
+	font-family: 'calibri';
+	border: none;
+	background: transparent;
+	color: #008080;
+	transition: 0.5s background;
+}
+</style>
+
+<form name="acc">
+
+	<!-- accounts department portal -->
+	<div class="dashboardBody">
+
+		<!-- header label for accounts department -->
+		<div class="red">Accounts Department Portal</div>
+
+		<!-- central division which contains all functioning units -->
+		<div class="centerDiv">
+
+			<!-- header -->
+			<!-- header for employee-data which appears once view-requests button is triggered. -->
+			<div ng-if="tableHeader==true">
+			
+				<div style="display: inline-block;" class="colWidth">
+					<span class="tHead">First Name</span>
+				</div>
+				
+				<div style="display: inline-block;" class="colWidth">
+					<span class="tHead">Date Joined</span>
+				</div>
+				
+				<div
+					style="display: inline-block; min-width: 90px; max-midth: 90px; margin-top: 5px;">
+					<span class="tHead">Dues</span>
+				</div>
+				
+				<div style="display: inline-block;" class="colWidth">
+					<span class="tHead">Action</span>
+				</div>
+				
+			</div>
+
+			<br>
+
+			<!-- details -->
+			<!-- details of employee which appears once view-requests button is triggered. -->
+			<div style="max-height: 140px; overflow-y: auto;"
+				ng-repeat="a in employeeData" class="white"
+				ng-if="a.resignEmployeeId.resignApplied == false">
+
+				<div style="display: inline-block;" class="colWidth">{{a.firstName}}</div>
+				
+				<div style="display: inline-block;" class="colWidth">{{a.dateJoined
+					| date}}</div>
+				
+				<div
+					style="display: inline-block; min-width: 90px; max-midth: 90px; margin-top: 5px;">{{a.resignEmployeeId.arrears}}
+					INR</div>
+
+				<button class="update" ng-click="clearDuesAndPass(a)">Clear
+					Dues & Pass</button>
+
+			</div>
+
+		</div>
+
+		<!-- segment which features view-pending-requests & update-all button -->
+		<div style="bottom: 15%; margin-top: 25px;">
+
+			<button class="updateAll" ng-click="accUpdateAll()"
+				ng-if="updateAllFlag">Update All</button>
+
+			<button ng-click="getData()"
+				class="form-control viewPendingRequestsButton">View
+				Resignation Requests</button>
+
+		</div>
+
+		<!-- general instructions on how the arrears are calculated -->
+		<div class="desc" style="margin-left: 25%; padding-top: 10px;">
+
+			<ul>
+
+				<li><strong>Assumption: </strong> The payment to employee is given at the start of month by
+					the company</li>
+					
+				<li><strong>Assumption: </strong> Per day salary-equivalent : 2000 INR</li>
+
+				<li>When employee quits, he has to submit per-day-equivalent of the amount to company</li>
+
+				<li>Dues is calculated as, Days-in-current-month minus Resignation-applied-date times per-day-salary</li>
+
+			</ul>
+
+		</div>
+
+		<!-- go back button, which redirects to central dashboard screen -->
+		<div style="margin-left: 25%;">
+
+			<button class="signOut" ng-click="back()">Go Back</button>
+
+		</div>
+		
+	</div>
+	
+</form>

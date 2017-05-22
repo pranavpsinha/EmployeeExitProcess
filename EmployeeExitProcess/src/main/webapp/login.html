@@ -1,0 +1,101 @@
+<style>
+body {
+	background: url('/assets/images/loginBackground.jpg');
+	background-size: cover;
+	position: absolute;
+	background-attachment: fixed;
+	bottom: 0px;
+	right: 0px;
+	top: 0px;
+	left: 0px;
+	min-width: 300px;
+}
+
+h1 {
+	font-family: 'Calibri';
+	color: #fff;
+	margin-left: 37.7%;
+	margin-right: 36%;
+	cursor: none;
+}
+
+h5 {
+	font-family: 'Calibri';
+	color: #fff;
+	margin-left: 44.5%;
+	margin-right: 44.5%;
+	cursor: none;
+}
+
+h6 {
+	font-family: 'Calibri';
+	color: #fff;
+	margin-left: 47%;
+	margin-right: 47%;
+	cursor: none;
+}
+</style>
+
+<!-- login page -->
+<div class="container-fluid loginBody">
+
+	<!-- project header -->
+	<div class="eep" onmousedown="return false">
+		<h1>Employee Exit Process</h1>
+		<h5>कर्मचारी निकास प्रक्रिया</h5>
+		<h6>Version 2.2.3</h6>
+		<hr>
+	</div>
+
+	<!-- login form -->
+	<form name="loginForm" class="box" ng-submit="submit()" novalidate>
+
+		<!-- container for input fields of login page -->
+		<div class="capsule">
+
+			<br> <br>
+
+
+			<div class="uname">
+
+				<div class="col-sm-12">
+					<table>
+
+						<!-- input username -->
+						<tr class="space">
+							<td><i class="material-icons" style="color: #008080">perm_identity</i>
+							</td>
+							<td><input name="userId" id="userId" type="text"
+								class="input" ng-model="username" placeholder="Username"
+								autocomplete="off" required /> <span class="error"
+								ng-show="(loginForm.userId.$dirty && username.length==0)">Required!</span>
+							</td>
+						</tr>
+
+						<!-- input password -->
+						<tr class="space">
+							<td><i class="material-icons" style="color: #008080;">lock_outline</i>
+							</td>
+							<td><input name="passWord" id="passWord" type="passWord"
+								class="input" ng-model="password" placeholder="Password"
+								required /> <span class="error"
+								ng-show="(loginForm.passWord.$dirty && password.length==0)">Required!</span>
+							</td>
+							<td><i class="material-icons"
+								style="position: relative; color: #aaa; cursor: pointer; font-size:25px"
+								onmouseup="document.getElementById('passWord').type='password'"
+								onmousedown="document.getElementById('passWord').type='text'">text_format</i></td>
+						</tr>
+					</table>
+				</div>
+
+			</div>
+
+			<!-- login button -->
+			<button name="loginButton" type="submit" class="btn login">Login</button>
+
+		</div>
+
+	</form>
+
+</div>
